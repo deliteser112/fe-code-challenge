@@ -14,7 +14,7 @@ const PriceChart = ({ symbolId }: PriceChartProps) => {
     if (symbolId) {
       dispatch(fetchPriceHistory(symbolId));
     }
-  }, [dispatch, symbolId]);
+  }, [symbolId]);
 
   const apiState = useAppSelector(selectors.apiState);
   const data = useAppSelector(selectors.selectPriceHistory);

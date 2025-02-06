@@ -1,0 +1,38 @@
+.symbolsView {
+  width: 100%;
+}
+
+.symbolsView__chart {
+  padding: 12px;
+  padding-right: 20px;
+  position: fixed;
+  right: 20px;
+  z-index: 9;
+}
+
+.symbolsView__cards {
+  width: calc(100% - 424px);
+}
+
+@media screen and (max-width: 1024px) {
+  .symbolsView {
+    padding-top: 200px;
+  }
+  .symbolsView__chart {
+    width: 95%;
+    background-color: #e3e3e4;
+    margin-top: 0;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .symbolsView__cards {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .symbolsView__chart {
+    width: 100%;
+  }
+}

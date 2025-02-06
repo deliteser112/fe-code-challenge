@@ -21,6 +21,7 @@ type StocksState = {
     loading: boolean | null;
     error: boolean;
   };
+  selectedId: string | null;
 };
 
 const initialState: StocksState = {
@@ -29,7 +30,8 @@ const initialState: StocksState = {
   apiState: {
     loading: null,
     error: false
-  }
+  },
+  selectedId: null
 };
 
 export const fetchAllStocks = createAsyncThunk(
@@ -44,11 +46,16 @@ export const fetchAllStocks = createAsyncThunk(
 const selectStockIds = (state: RootState) => state.stocks.ids;
 const selectStocks = (state: RootState) => state.stocks.entities;
 const apiState = (state: RootState) => state.stocks.apiState;
+const activeSymbol = (state: RootState) => state.stocks.selectedId;
 
 const stocksSlice = createSlice({
   name: 'stocks',
   initialState,
-  reducers: {},
+  reducers: {
+    updateActiveSymbol: (state, action) => {
+      state.selectedId = action.payload;
+    }
+  },
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
     builder.addCase(fetchAllStocks.fulfilled, (state, action) => {
@@ -79,11 +86,14 @@ const stocksSlice = createSlice({
   }
 });
 
+const { updateActiveSymbol } = stocksSlice.actions;
+
 const selectors = {
   selectStockIds,
   selectStocks,
-  apiState
+  apiState,
+  activeSymbol
 };
 
 export default stocksSlice;
-export { selectors };
+export { selectors, updateActiveSymbol };

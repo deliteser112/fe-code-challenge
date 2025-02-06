@@ -78,14 +78,36 @@ select {
   width: 100%;
 }
 
+.text-bold {
+  font-weight: bold;
+}
+
+.align-right {
+  text-align: right;
+}
+
 .App {
-  padding: 12px 24px 0;
+  padding: 110px 24px 0;
   background-color: rgba(14, 17, 35, 0.02);
   min-height: 100%;
+  position: relative;
+}
+
+.header {
+  position: fixed;
+  width: calc(100% - 40px);
+  z-index: 10;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #E3E3E4;
 }
 
 @media (max-width: 767px) {
   .App {
-    padding: 2px 2px 0;
+    padding: 110px 2px 0;
+  }
+  .header {
+    width: calc(100% - 1px);
   }
 }
