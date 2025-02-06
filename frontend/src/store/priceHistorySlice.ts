@@ -17,6 +17,7 @@ type PriceHistoryState = {
   apiState: {
     loading: boolean | null;
     error: boolean;
+    activeRequests: number;
   };
 };
 
@@ -25,17 +26,23 @@ const initialState: PriceHistoryState = {
   history: [],
   apiState: {
     loading: null,
-    error: false
+    error: false,
+    activeRequests: 0
   }
 };
+
+let controller = new AbortController();
 
 export const fetchPriceHistory = createAsyncThunk(
   'stocks/fetchPriceHistory',
   // if you type your function argument here
   async (symbolId: string, thunkAPI) => {
+    controller.abort();
+    controller = new AbortController();
     const response = await fetch(`http://localhost:3100/api/stock/history/${symbolId}`, {
-      signal: thunkAPI.signal
+      signal: controller.signal // Use the signal for potential cancellation
     });
+
     return (await response.json()) as PriceHistoryResponse;
   }
 );
@@ -53,20 +60,26 @@ const priceHistorySlice = createSlice({
     builder.addCase(fetchPriceHistory.fulfilled, (state, action) => {
       const { symbol, history } = action.payload;
       state.apiState.error = false;
-      state.apiState.loading = false;
+      state.apiState.activeRequests -= 1;
+      if (state.apiState.activeRequests === 0) {
+        state.apiState.loading = false;
+      }
       state.history = history;
       state.symbol = symbol;
     });
 
     builder.addCase(fetchPriceHistory.rejected, (state, action) => {
-      if (!action.meta.aborted) {
-        state.apiState.error = true;
+      state.apiState.error = true;
+      state.apiState.activeRequests -= 1;
+
+      if (state.apiState.activeRequests === 0) {
         state.apiState.loading = false;
       }
     });
 
     builder.addCase(fetchPriceHistory.pending, (state, action) => {
       state.apiState.error = false;
+      state.apiState.activeRequests += 1;
       state.apiState.loading = true;
     });
   }

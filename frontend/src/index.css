@@ -42,6 +42,12 @@ h1 {
   line-height: 1.1;
 }
 
+.title {
+  font-size: 1.6em;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;

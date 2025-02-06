@@ -1,11 +1,122 @@
+.symbolsGrid {
+  display: flex;
+  justify-content: space-between;
+  min-height: 80vh;
+  flex-flow: wrap;
+  padding: 15px 20px;
+}
+
 .symbolCard {
-  border: 2px solid black; /* just for visibility, feel free to remove it */
-  margin: 10px; /* just for visibility, feel free to remove it */
-  padding: 10px; /* just for visibility, feel free to remove it */
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  width: 23%;
+  margin-top: 27px;
+}
+
+.symbolCard__content {
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.symbolCard__content--trend-up {
+  box-shadow: 0px 0px 8px 4px rgba(74, 248, 10, 0.557);
+}
+
+.symbolCard__content--trend-down {
+  box-shadow: 0px 0px 8px 4px rgba(191, 10, 10, 0.5);
+}
+
+.symbolCard__scale--up {
+  transform: scale(1.05);
+}
+
+.symbolCard__scale--up-shadow {
+  box-shadow: 0px 0px 8px 4px rgb(30, 29, 29);
+}
+
+.symbolCard__scale--down {
+  transform: scale(0.95);
+}
+
+.symbolCard__header {
+  position: relative;
+  background-color: black;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px 5px 0 0;
+}
+
+.symbolCard__trend-icon {
+  position: absolute;
+  width: 60px;
+  left: 85%;
+  top: 10%;
+  transform: translateY(-50%);
+  z-index: 8;
+}
+
+.symbolCard__body {
+  background-color: white;
+  padding: 10px;
+  border-radius: 0 0 5px 5px;
+}
+
+.symbolCard__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+.symbolCard__price-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 12px;
+}
+
+.symbolCard__price {
+  font-size: 24px;
 }
 
 .symbolCard__shake {
   animation: shake 0.62s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@media screen and (max-width: 1412px) {
+  .symbolCard {
+    width: 31.3%;
+  }
+}
+
+@media screen and (max-width: 1187px) {
+  .symbolCard {
+    width: 47%;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .symbolCard {
+    width: 31.3%;
+  }
+}
+
+@media screen and (max-width: 718px) {
+  .symbolsGrid {
+    min-height: calc(100vh - 500px);
+  }
+  .symbolCard {
+    width: 47%;
+  }
+}
+
+@media screen and (max-width: 496px) {
+  .symbolCard {
+    width: 98%;
+  }
 }
 
 @keyframes shake {
